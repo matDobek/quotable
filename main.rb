@@ -74,13 +74,14 @@ class Quotable
     end
 
     def text
-      str = ""
       file = File.new(Dir["./books/*.txt"].sample)
       no_of_lines = `wc -l "#{file.path}"`.strip.split()[0].to_i
-      no_of_sample_line = rand(0..no_of_lines)
+      quoted_line_number = rand(0..no_of_lines)
+
+      quote = ""
 
       file.each_with_index do |line, number|
-        next if number < no_of_sample_line
+        next if number < quoted_line_number 
 
         line = line.strip
         while line.size > 100
@@ -93,11 +94,11 @@ class Quotable
         next if line.size < 30
 
         book_name = file.path.split("/")[-1].split(".")[0].gsub("_", " ")
-        str = "#{line}\n - #{book_name}"
+        quote = "#{line}\n - #{book_name}"
         break
       end
 
-      str
+      quote
     end
   end
 end
