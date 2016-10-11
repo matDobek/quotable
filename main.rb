@@ -49,10 +49,12 @@ end
 
 class Broadcast
   def self.file(f)
+    TwitterStrategy.new.broadcast_file(f)
     LogStrategy.new.broadcast_file(f)
   end
 
   def self.text(str)
+    TwitterStrategy.new.broadcast_text(str)
     LogStrategy.new.broadcast_text(str)
   end
 end
