@@ -1,9 +1,8 @@
-# gem install twitter
 require 'twitter'
 require 'yaml'
 require 'pry'
 
-class Strategy 
+class Strategy
   def broadcast_file(_)
     fail NotImplementedError
   end
@@ -62,18 +61,10 @@ end
 class Quotable
   class << self
     def quote
-      case rand(0..100) 
-      when 99..100 then Broadcast.file(image)
-      else Broadcast.text(text)
-      end
+      Broadcast.text(text)
     end
 
     private
-
-
-    def image
-      File.new(Dir["./quotes/*.jpg"].sample)
-    end
 
     def text
       file = File.new(Dir["./books/*.txt"].sample)
@@ -83,7 +74,7 @@ class Quotable
       quote = ""
 
       file.each_with_index do |line, number|
-        next if number < quoted_line_number 
+        next if number < quoted_line_number
 
         line = line.strip
         while line.size > 100
